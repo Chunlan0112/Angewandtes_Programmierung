@@ -26,9 +26,9 @@ capital_lower = {word: ''.join(sorted(word.lower()))for word in all_word}
 for ele in anagramme_alpha:
     for a in capital_lower.keys():
         if ele == capital_lower[a]:
-            anagramme_no_same_word.add(a.lower)
             if a.lower() not in anagramme_no_same_word:
                 anagramme.add(a)
+                anagramme_no_same_word.add(a.lower)
     if len(anagramme) > 1:
         print(' '.join(sorted(anagramme)))
     anagramme.clear()
