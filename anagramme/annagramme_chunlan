@@ -1,0 +1,33 @@
+#author: Chunlan Ma, Bingyu Xiong, Yiwei Li
+
+import sys
+
+#get filename from commond 'python3 anagramme.py zeit.tagged'
+filename = sys.argv[1]
+#filename = zeit.tagged
+
+all_word = set()
+anagramme_alpha = set()
+#find all words of the first row, which is combined only with letter and length not less than 2
+with open(filename, 'r') as myfile:
+    for line in myfile:
+        word_list = line.split()
+        word = word_list[0]
+        if word.isalpha() and len(word) >= 3:
+            all_word.add(word)
+            anagramme_alpha.add(''.join(sorted(word.lower())))
+
+#creat anagramme dict and sort values of each key alphabetical then print the resault at last.
+anagramme = set()
+anagramme_no_same_word = set()
+capital_lower = {word: ''.join(sorted(word.lower()))for word in all_word}
+for ele in anagramme_alpha:
+    for a in capital_lower.keys():
+        if ele == capital_lower[a]:
+            anagramme_no_same_word.add(a.lower)
+            if a.lower() not in anagramme_no_same_word:
+                anagramme.add(a)
+    if len(anagramme) > 1:
+        print(' '.join(sorted(anagramme)))
+    anagramme.clear()
+
