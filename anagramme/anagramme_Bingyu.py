@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+
 # Gruppenmitglieder: Chunlan Ma, Bingyu Xiong, Yiwei Li
+# Führe das Programm aus mit 'python3 anagramme.py zeit.tagged'
+
 import sys
 
 anagrams = {}
@@ -16,18 +19,16 @@ with open(sys.argv[1], 'r', encoding='utf-8') as f:
                 sorted_word += i  # Erstelle die sortierte Liste von Buchstaben
 
             if sorted_word not in anagrams:  # Wenn das Dict noch nicht die sortierte Buchstabenliste als Key hat
-                anagrams[sorted_word] = {word}  # Menge von diesem Wort als Value
+                anagrams[sorted_word] = {word}  # Nimm die Menge von diesem Wort als Value
             else:
                 anagrams[sorted_word].add(word)  # Sonst füge Anagramme in die Menge hinzu
 
             # Lösche die Duplikate mit unterschiedlichen Klein/Großschreibungen
-            copy = anagrams[sorted_word]
             for n in range(0, len(anagrams[sorted_word])):
                 if word.lower() == list(anagrams[sorted_word])[n]:
-                    copy.discard(list(anagrams[sorted_word])[n])
+                    anagrams[sorted_word].discard(list(anagrams[sorted_word])[n])
                     break
-            anagrams[sorted_word] = copy
 
 for word_set in anagrams.values():
-    if len(word_set) >= 2:  # Wenn die Menge mehr als 2 Elemente hat, wird die Menge ausgegeben
+    if len(word_set) >= 2:  # Wenn die Mengen mehr als 2 Elemente haben, werden die Mengen ausgegeben
         print(word_set)  
