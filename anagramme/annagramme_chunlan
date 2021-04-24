@@ -4,22 +4,22 @@
 
 import sys
 
-#get filename from commond 'python3 anagramme.py zeit.tagged'
+# get filename from commond 'python3 anagramme.py zeit.tagged'
 filename = sys.argv[1]
-#filename = zeit.tagged
+# filename = zeit.tagged
 
 all_word = set()
 anagramme_alpha = set()
-#find all words of the first row, which is combined only with letter and length not less than 2
+# find all words of the first row, which is combined only with letter and length not less than 2
 with open(filename, 'r') as myfile:
     for line in myfile:
         word_list = line.split()
-        word = word_list[0]
+        word = word_list[0]      # besser: word, *_ = line.split()
         if word.isalpha() and len(word) >= 3:
             all_word.add(word)
             anagramme_alpha.add(''.join(sorted(word.lower())))
 
-#creat anagramme dict and sort values of each key alphabetical then print the resault at last.
+# create anagramme dict and sort values of each key alphabetical then print the resault at last.
 anagramme = set()
 anagramme_no_same_word = set()
 capital_lower = {word: ''.join(sorted(word.lower()))for word in all_word}

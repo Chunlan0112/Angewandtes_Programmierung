@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Gruppenmitglieder: Chunlan Ma, Bingyu Xiong, Yiwei Li
-# Führe das Programm aus mit 'python3 anagramme.py zeit.tagged'
+# Führe das Programm mit 'python3 anagramme.py zeit.tagged' aus
 
 import sys
 
