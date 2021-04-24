@@ -51,18 +51,15 @@ def number(expr, startpos):
 
 
 def bracketexpr(expr, startpos):
-    try:
-        if expr[startpos] == '(':
-            zahl, endpos = addexpr(expr, startpos + 1)
-            if expr[endpos] != ')':
-                print("Fehler!")
-            return zahl, endpos + 1
-        elif expr[startpos] == '-':
-            zahl, endpos = bracketexpr(expr, startpos + 1)
-            return -zahl, endpos
-        else:
-            return number(expr, startpos)
-    except IndexError:
+    if expr[startpos] == '(':
+        zahl, endpos = addexpr(expr, startpos + 1)
+        if expr[endpos] != ')':
+            print("Fehler!")
+        return zahl, endpos + 1
+    elif expr[startpos] == '-':
+        zahl, endpos = bracketexpr(expr, startpos + 1)
+        return -zahl, endpos
+    else:
         return number(expr, startpos)
 
 
