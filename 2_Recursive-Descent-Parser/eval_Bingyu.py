@@ -63,7 +63,7 @@ def bracketexpr(expr, startpos):
         return number(expr, startpos)
 
 
-#  zahl * zahl1 ( * zahl2 ...) : 1 * 2
+#  multi  ->  bracket ( */ bracket */ bracket ...)
 def mulexpr(expr, startpos):
     zahl, startpos = bracketexpr(expr, startpos)
     while startpos < len(expr) and expr[startpos] in ['*', '/']:
@@ -76,6 +76,7 @@ def mulexpr(expr, startpos):
     return zahl, startpos
 
 
+#  add  ->  multi ( +/- multi +/- multi ...)
 def addexpr(expr, startpos):
     zahl, startpos = mulexpr(expr, startpos)
     while startpos < len(expr) and expr[startpos] in ['+', '-']:
@@ -92,6 +93,17 @@ def start(expr, startpos):
     return addexpr(expr, startpos)
 
 
-print(start('2.7*-3.5+1.9', 0))
+with open('test.txt', 'r', encoding='utf-8') as file:
+    for line in file:
+        line = line.strip().replace(' ', '')
+        correct_line = True
+        counter = 34
 
-# with open('test.txt', 'r', encoding='urf-8') as file:
+        for ele in line:
+            counter += 1
+            if not ele.isnumeric() and not ele in ['+', '-', '*', '/', '(', ')', '.']:
+                print('Fehler in arithmetischem Ausdruck: ' + line + '\n' + ' '*counter + '^')
+                correct_line = False
+
+        if correct_line:
+            print(line + ' = ' + "%.2f" % start(line, 0)[0])
