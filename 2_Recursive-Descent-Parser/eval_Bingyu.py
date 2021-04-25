@@ -54,7 +54,7 @@ def bracketexpr(expr, startpos):
     if expr[startpos] == '(':
         zahl, endpos = addexpr(expr, startpos + 1)
         if expr[endpos] != ')':
-            print("Fehler!")
+            print('Fehler in arithmetischem Ausdruck: ' + line + '\n' + ' ' * (34+endpos) + '^')
         return zahl, endpos + 1
     elif expr[startpos] == '-':
         zahl, endpos = bracketexpr(expr, startpos + 1)
@@ -96,14 +96,16 @@ def start(expr, startpos):
 with open('test.txt', 'r', encoding='utf-8') as file:
     for line in file:
         line = line.strip().replace(' ', '')
+        start(line, 0)
         correct_line = True
         counter = 34
 
         for ele in line:
             counter += 1
             if not ele.isnumeric() and not ele in ['+', '-', '*', '/', '(', ')', '.']:
-                print('Fehler in arithmetischem Ausdruck: ' + line + '\n' + ' '*counter + '^')
+                print('Fehler in arithmetischem Ausdruck: ' + line + '\n' + ' ' * counter + '^')
                 correct_line = False
+                break
 
         if correct_line:
             print(line + ' = ' + "%.2f" % start(line, 0)[0])
