@@ -1,3 +1,4 @@
+import sys
 # signs and number as default
 INTEGER={"0":0,
          "1":1,
@@ -72,8 +73,22 @@ def Mulexpr(expr:str,startspos:int):
             number = number / number2
     return number,startspos
 
+def Start(expr:str,staspos:int):
+    new_expr=""
+    for char in expr:
+        if char!=" ":
+            new_expr=new_expr+char
+    expr=new_expr[0:-1]
+    num,pos=Addexpr(expr,staspos)
+    print(expr+" = {}".format(num))
+
 if __name__ == '__main__':
-    test_expr="2*2*2*2\n"
-    num,pos=Addexpr(test_expr,0)
-    print(num)
-    # print(pos)
+    file_name=sys.argv[1]
+    with open(file_name) as f:
+        expr=f.readline()
+        while expr:
+            Start(expr=expr,staspos=0)
+            expr=f.readline()
+        else:
+            pass
+
